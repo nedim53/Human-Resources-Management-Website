@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html data-bs-theme="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Razgovor sa kandidatima</title>
+  <!-- Bootstrap CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="/stylesheets/chat_hr.css">
+</head>
+<body>
+  <nav class="navbar navbar-expand-lg navbar-light bg-light shadow-sm">
+    <div class="container">
+      <a class="navbar-brand">
+        <img src="/images/profile-icon-png-910.png" alt="Profile Icon" style="width: 40px; height: 40px;">
+        <%= korisnik.ime %> <%= korisnik.prezime %>
+      </a>
+      
+      <!-- Linkovi -->
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav ms-auto">
+          <li class="nav-item">
+            <a class="nav-link" href="/kreirajKonkurs">Kreiranje i upravljanje konkursa</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/admin" style="font-weight: bolder;">Pregled i upravljanje kandidata</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/chat_hr">Razgovor sa kandidatima</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/">Odjavi se</a>
+          </li>
+        </ul>
+      </div>
+      
+      <!-- Tri tačke za postavke -->
+      <div class="dropdown d-lg-none">
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+          <span class="navbar-toggler-icon">&#9776;</span> <!-- Ikonica -->
+        </button>
+        <ul class="dropdown-menu">
+          <li><a class="dropdown-item" href="/kreirajKonkurs">Kreiranje i upravljanje konkursa</a></li>
+          <li><a class="dropdown-item" href="/admin">Pregled i upravljanje kandidata</a></li>
+          <li><a class="dropdown-item" href="/chat_hr">Razgovor sa kandidatima</a></li>
+          <li><a class="dropdown-item" href="/">Odjavi se</a></li>
+
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <div class="container mt-5">
+    <h2>Lista kandidata prijavljeni na konkurse</h2>
+    <h4>Molimo da unesete status prijave</h4>
+    <button id="toggleCandidates" class="btn btn-dark mt-3">Prikaži kandidate</button>
+  </div>
+  <div id="candidatesTable" class="table-responsive mt-3" style="display: none;">
+    <table class="table table-striped table-dark table-hover">
+      <thead>
+        <tr>
+          <th scope="col">#</th>
+          <th scope="col">Ime i Prezime</th>
+          <th scope="col">Kompanija i Pozicija</th>
+          <th scope="col">Datum isteka</th>
+          <th scope="col">Status</th>
+          <th scope="col">Termin za intervju</th>
+          <th scope="col">Komentar intervjua</th>
+          <th scope="col">Promijeni status</th>
+          <th scope="col">Obrisi status</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% lista.forEach(function(lista, index) { %>
+        <tr>
+          <th scope="row"><%= index + 1 %></th>
+          <td><strong><%= lista.ime %> <%= lista.prezime %></strong></td>
+          <td><span><%= lista.kompanija %> - <%= lista.naziv %></span></td>
+          <td><span><%= new Date(lista.datum).toLocaleDateString('en-GB', { year: 'numeric', month: '2-digit', day: '2-digit' }) %></span></td>
+          <td>
+            <% 
+              const statusZaKandidata = status.find(s => 
+                s.kandidat_id === lista.korisnik_id && s.konkurs_id === lista.konkurs_id
+              ); 
+            %>
+            <form action="/chat_hr/status" method="POST" class="status-form">
+              <select name="status_prijave" class="form-select">
+                <option value="prijavljen" <%= (statusZaKandidata && statusZaKandidata.status_prijave === 'prijavljen') ? 'selected' : '' %>>Prijavljen</option>
+                <option value="prosao" <%= (statusZaKandidata && statusZaKandidata.status_prijave === 'prosao') ? 'selected' : '' %>>Prošao</option>
+                <option value="odbijen" <%= (statusZaKandidata && statusZaKandidata.status_prijave === 'odbijen') ? 'selected' : '' %>>Odbijen</option>
+                <option value="u-uzem-krugu" <%= (statusZaKandidata && statusZaKandidata.status_prijave === 'u-uzem-krugu') ? 'selected' : '' %>>U užem krugu</option>
+                <option value="pozvan-na-intervju" <%= (statusZaKandidata && statusZaKandidata.status_prijave === 'pozvan-na-intervju') ? 'selected' : '' %>>Pozvan na intervju</option>
+              </select>
+          </td>
+          <td><input type="date" name="termin_intervjua" class="form-control" value="<%= statusZaKandidata && statusZaKandidata.termin_intervjua ? statusZaKandidata.termin_intervjua.split('T')[0] : '' %>"></td>
+          <td><textarea name="komentar_intervjua" rows="3" class="form-control"><%= statusZaKandidata && statusZaKandidata.komentar_intervjua ? statusZaKandidata.komentar_intervjua : '' %></textarea></td>
+          <td>
+              <input type="hidden" name="korisnik_id" value="<%= lista.korisnik_id %>">
+              <input type="hidden" name="konkurs_id" value="<%= lista.konkurs_id %>">
+              <input type="hidden" name="id_hr" value="<%= lista.id_hr %>">
+              <button type="submit" class="btn btn-primary btn-sm">Potvrdi</button>
+            </form>
+          </td>
+          <td>
+            <form action="/chat_hr/sakrij" method="POST" class="hide-form">
+              <input type="hidden" name="korisnik_id" value="<%= lista.korisnik_id %>">
+              <input type="hidden" name="konkurs_id" value="<%= lista.konkurs_id %>">
+              <input type="hidden" name="id_hr" value="<%= lista.id_hr %>">
+              <button type="submit" class="btn btn-danger btn-sm">X</button>
+            </form>
+          </td>
+        </tr>
+        <% }); %>
+      </tbody>
+    </table>
+  </div>
+  
+
+  
+
+
+  
+  
+  <!-- Chat sa HR Menadžerom -->
+  <div class="container mt-5">
+    <h2 class="text-center" id="razgovori">Razgovori</h2>
+    <% poruke.forEach(function(poruka) { %>
+    <div class="chat-box mb-4">
+      <div class="<%= poruka.posiljalac === korisnik.email ? 'message sent' : 'message received' %>">
+        <div class="message-header">
+          <strong><%= poruka.posiljalac === korisnik.email ? 'Vi' : poruka.posiljalac %></strong>
+          <small><%= poruka.primalac === korisnik.email ? 'Primatelj: Vi' : 'Primatelj: ' + poruka.primalac %></small>
+        </div>
+        <div class="message-body">
+          <p><%= poruka.poruka %></p>
+        </div>
+        <div class="message-timestamp">
+          <small><%= new Date(poruka.datum_slanja).toLocaleString() %></small>
+        </div>
+      </div>
+    </div>
+    <% }) %>
+  </div>
+
+
+   <!-- Ikona za otvoriti chat -->
+   <div id="chat-icon" onclick="openChat()" class="chat-icon">
+    💬
+  </div>
+
+  <!-- Chat Modal -->
+  <div id="chat-modal" class="chat-modal">
+    <span class="close-chat" onclick="closeChat()">×</span>
+    <h4>Chat</h4>
+
+    <!-- Forma za chat -->
+    <form id="chat-form" action="/chat_hr" method="POST">
+
+      <div class="mb-3">
+        <label for="sender-name" class="form-label">Vaš email</label>
+        <input type="email" id="sender-name" name="posiljalac" class="form-control" placeholder="Unesite vas Gmail" required>
+      </div>
+      <div class="mb-3">
+        <label for="hr-email" class="form-label">Email korisnika</label>
+        <input type="email" id="hr-email" name="primalac" class="form-control" placeholder="Unesite Gmail korisnika" required>
+      </div>
+
+      <div class="mb-3">
+        <label for="message" class="form-label">Poruka</label>
+        <textarea id="message" name="poruka" class="form-control" rows="4" placeholder="Unesite svoju poruku" required></textarea>
+      </div>
+
+      <button type="submit" class="btn btn-primary">Pošaljite</button>
+    </form>
+  </div>
+  <!-- Bootstrap JS -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="/javascripts/chat_hr.js"></script>
+  <!-- JavaScript za otvaranje i zatvaranje chata -->
+  <script>
+    
+  </script>
+</body>
+</html>

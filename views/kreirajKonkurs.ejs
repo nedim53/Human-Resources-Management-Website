@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html data-bs-theme="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Kreiranje konkursa</title>
+  <!-- Bootstrap CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="/stylesheets/kreirajKonkurs.css">
+</head>
+<body>
+  <nav class="navbar navbar-expand-lg navbar-light bg-light shadow-sm">
+    <div class="container-fluid">
+      <a class="navbar-brand">
+        <img src="/images/profile-icon-png-910.png" alt="Profile Icon" style="width: 40px; height: 40px;">
+        <%= menadzer.ime %> <%= menadzer.prezime %>
+      </a>
+      
+      <!-- Dugme za tri tačke -->
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav ms-auto">
+          <li class="nav-item">
+            <a class="nav-link" href="/kreirajKonkurs">Kreiranje i upravljanje Konkursima</a>
+          </li>
+          <li class="nav-item" id="konkurs">
+            <a class="nav-link" href="/admin" style="font-weight: bolder;">Pregled i upravljanje kandidatima</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/chat_hr">Razgovor sa kandidatima</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/">Odjavi se</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <div class="form-container">
+    <h2>Kreiraj konkurs</h2>
+    <form action="/kreirajKonkurs" method="POST">
+        <div class="row">
+          <div class="col-md-6 mb-3">
+            <label for="kompanija">Naziv kompanije:</label>
+            <input type="text" class="form-control" id="kompanija" name="kompanija" placeholder="Ime kompanije" required>
+        </div>
+            <div class="col-md-6 mb-3">
+                <label for="naziv">Naziv konkursa:</label>
+                <input type="text" class="form-control" id="naziv" name="naziv" placeholder="Ime naziva konkursa" required>
+            </div>
+            <div class="col-md-6 mb-3">
+                <label for="Hr_menadzer">Ime HR menadzera</label>
+                <input type="text" class="form-control" id="ime_hr" name="imeHrMenadzera" value="<%= menadzer.ime %>" required>
+            </div>
+            <div class="col-md-6 mb-3">
+                <label for="Hr_menadzer">Prezime HR menadzera</label>
+                <input type="text" class="form-control" id="prezime_hr" name="prezimeHrMenadzera" value="<%= menadzer.prezime %>" required>
+            </div>
+            <div class="col-md-6 mb-3">
+                <label for="datum">Datum isteka konkursa</label>
+                <input type="date" class="form-control" id="datum" name="datum" required>
+            </div>
+            <div class="col-md-6 mb-3">
+                <label for="opis">Opis konkursa:</label>
+                <input type="text" class="form-control" id="opis" name="opis" placeholder="Unesite opis konkursa" required>
+            </div>
+            <div class="col-md-6 mb-3">
+                <label for="informacija">O nama</label>
+                <input type="text" class="form-control" id="informacija" name="informacija" placeholder="Vise informacija o nama" required>
+            </div>
+            <div class="col-md-6 mb-3">
+                <label for="zadaci">Glavni zadaci i odgovornosti:</label>
+                <input type="text" class="form-control" id="zadaci" name="zadaci" placeholder="Glavni zadaci i odgovornosti posla" required>
+            </div>
+            <div class="col-md-6 mb-3">
+              <label for="zadaci">Grad:</label>
+              <input type="text" class="form-control" id="grad" name="grad" placeholder="Grad iz kojeg se radi" required>
+          </div>
+            <div class="col-md-6 mb-3">
+                <label for="napomena">Napomena</label>
+                <input type="text" class="form-control" id="napomena" name="napomena" placeholder="Unesite napomenu, ako je ima">
+            </div>
+            <div class="col-md-6 mb-3">
+                <label for="kontaktEmail">Kontakt Email:</label>
+                <input type="text" class="form-control" id="kontaktEmail" name="kontaktEmail" placeholder="Unesite kontak email">
+            </div>
+            <div class="col-md-6 mb-3">
+                <label for="kontaktTel">Kontakt Telefon:</label>
+                <input type="text" class="form-control" id="kontaktTel" name="kontaktTel" placeholder="Unesite kontakt telefon">
+            </div>
+        </div>
+        <h3>Obavezna polja za prijavu</h3>
+        <div class="row">
+            <div class="col-md-6 mb-3">
+                <label for="imeKandidata">Ime kandidata</label>
+                <label for="prezimeKandidata">Prezime Kandidata</label>
+                <label for="lokacija">Grad kandidata</label>
+                <label for="emailKandidata">Email kandidata</label>
+            </div>
+        </div>
+
+        <h3>Opciono polja za prijavu</h3>
+        <div class="checkbox-group">
+            <label><input type="checkbox" name="cv"> CV</label>
+            <label><input type="checkbox" name="vozackaDozvola"> Vozačka dozvola</label>
+            <label><input type="checkbox" name="straniJezik"> Strani jezik</label>
+            <label><input type="checkbox" name="iskustvo"> Iskustvo</label>
+            <label><input type="checkbox" name="junior"> Junior</label>
+            <label><input type="checkbox" name="medior"> Medior</label>
+            <label><input type="checkbox" name="senior"> Senior</label>
+            <label><input type="checkbox" name="vss"> VSS</label>
+            <label><input type="checkbox" name="vssVss"> VŠS</label>
+        </div>
+
+        <button type="submit">Kreiraj konkurs</button>
+    </form>
+  </div>
+
+  <!-- Bootstrap JS -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

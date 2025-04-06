@@ -1,0 +1,146 @@
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: linear-gradient(135deg, #004aad, #001f54);
+    color: #f8f9fa; /* Bijeli tekst za čitljivost */
+    margin: 0;
+    padding: 0;
+    overflow-x: hidden; /* Sprečava horizontalni scroll */
+  }
+  
+  /* Naslovi */
+  h2, h3, h4 {
+    color: #66b2ff; /* Svijetloplavi naslovi */
+  }
+  
+  /* Navbar */
+  .navbar {
+    background: linear-gradient(90deg, #1e1e2f, #282846);
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.4);
+    border-bottom: 1px solid #444;
+  }
+  
+  .navbar-brand {
+    font-weight: bold;
+    color: #66b2ff;
+    display: flex;
+    align-items: center;
+  }
+  
+  .navbar-brand:hover {
+    color: #f8f9fa;
+  }
+  
+  .nav-link {
+    font-size: 18px;
+    color: #c2d1f0;
+    margin: 0 10px;
+    transition: color 0.3s, transform 0.3s ease;
+  }
+  
+  .nav-link:hover {
+    color: #66b2ff;
+    transform: translateY(-2px);
+  }
+  
+  .navbar-toggler {
+    border: none;
+    color: #c2d1f0;
+    background-color: transparent;
+  }
+  
+  .dropdown-menu {
+    background-color: #333;
+    border: 1px solid #444;
+    color: #f8f9fa;
+  }
+  
+  .dropdown-menu .dropdown-item {
+    color: #c2d1f0;
+    transition: background-color 0.3s, color 0.3s;
+  }
+  
+  .dropdown-menu .dropdown-item:hover {
+    background-color: #186fe0;
+    color: #fff;
+  }
+  
+.container {
+    margin: 20px auto;
+    padding: 20px;
+    background-color: #333;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+    color: #f8f9fa;
+}
+
+h2 {
+    color: #66b2ff;
+    margin-bottom: 20px;
+}
+
+/* Osnovni stilovi za tabelu */
+.table-wrapper {
+    overflow-x: auto; /* Omogućavamo horizontalni skrol ako je potrebna */
+}
+
+.table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 20px;
+}
+
+.table th, .table td {
+    padding: 10px;
+    text-align: left;
+    border: 1px solid #444;
+}
+
+.table th {
+    background-color: #186fe0;
+    color: #fff;
+}
+
+.table tr:nth-child(even) {
+    background-color: #444;
+}
+
+/* Responzivni dizajn - tabela na manjim ekranima */
+/* Responzivni dizajn - tabela na manjim ekranima */
+@media (max-width: 768px) {
+    .table, .table th, .table td {
+        display: grid; /* Postavljamo tabelu na grid */
+        width: 100%;
+    }
+
+    /* Za svaku ćeliju dodajemo stil za labelu */
+    .table td {
+        display: block;
+        padding-left: 50%; /* Ovdje se dodaje prostor za "labelu" */
+        position: relative;
+    }
+
+    .table td:before {
+        /* Dodajemo "labelu" za svaku ćeliju */
+        content: attr(data-label);
+        position: absolute;
+        left: 10px;
+        font-weight: bold;
+        color: #fff;
+        top: 10px;
+    }
+
+    /* Uklanjamo naslove iz zaglavlja (th) na manjim ekranima */
+    .table th {
+        display: none;
+    }
+
+    /* Tabela postaje vertikalna na manjim ekranima */
+    .table td:first-child {
+        padding-top: 10px;
+    }
+
+    /* Širina polja za email na manjim ekranima */
+    .table td[data-label="Email"] {
+        width: 200px; /* Povećavamo širinu za email */
+    }
+}

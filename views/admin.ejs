@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html data-bs-theme="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+  <!--OVO MI JE LINK ZA ONE GRAFIKONE I ZA DASHBORD DA JE LJEPSI-->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+  <link rel="stylesheet" href="/stylesheets/admin.css">
+  <title>Home stranica</title>
+</head>
+<body>
+  <nav class="navbar navbar-expand-lg navbar-dark">
+    <div class="container-fluid">
+      <a class="navbar-brand" href="#">
+        <img src="/images/profile-icon-png-910.png" alt="Profile Icon" style="width: 40px; height: 40px; margin-right: 10px;">
+        <%= menadzer.ime %> <%= menadzer.prezime %>
+      </a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav ms-auto">
+          <li class="nav-item"><a class="nav-link" href="/kreirajKonkurs">Kreiranje i upravljanje Konkursa</a></li>
+          <li class="nav-item"><a class="nav-link" href="/admin">Pregled i upravljanje kandidatima</a></li>
+          <li class="nav-item"><a class="nav-link" href="/chat_hr">Razgovor sa kandidatima</a></li>
+          <li class="nav-item"><a class="nav-link" href="/">Odjavi se</a></li>
+          <li class="nav-item"><a class="nav-link" href="#dashboard-statistika">Dashboard(statistika)</a></li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+
+  <div class="container">
+    <h2>Lista Vaših Konkursa</h2>
+
+    <form action="/admin" method="GET">
+      <div class="row mb-3">
+        <!-- Pretraga po nazivu -->
+        <div class="col">
+          <input type="text" name="naziv" class="form-control" placeholder="Pretraži po nazivu" value="<%= pretraga || '' %>">
+        </div>
+    
+        <!-- Pretraga po datumu -->
+        <select name="datumSort" class="form-control">
+          <option value="">Sortiraj po datumu</option>
+          <option value="asc" <%= datumSort === 'asc' ? 'selected' : '' %>>Datum (rastuci)</option>
+          <option value="desc" <%= datumSort === 'desc' ? 'selected' : '' %>>Datum (opadajući)</option>
+        </select>
+        
+    
+        <!-- Filtriranje po zahtevima -->
+        <div class="col">
+          <select name="zahtjevi" class="form-control">
+            <option value="">Filtriraj po zahtjevima</option>
+            <option value="cv" <%= zahtjevi === 'cv' ? 'selected' : '' %>>CV</option>
+            <option value="vozacka_dozvola" <%= zahtjevi === 'vozacka_dozvola' ? 'selected' : '' %>>Vozačka dozvola</option>
+            <option value="strani_jezik" <%= zahtjevi === 'strani_jezik' ? 'selected' : '' %>>Strani jezik</option>
+            <option value="iskustvo" <%= zahtjevi === 'iskustvo' ? 'selected' : '' %>>Iskustvo</option>
+            <option value="junior" <%= zahtjevi === 'junior' ? 'selected' : '' %>>Junior</option>
+            <option value="medior" <%= zahtjevi === 'medior' ? 'selected' : '' %>>Medior</option>
+            <option value="senior" <%= zahtjevi === 'senior' ? 'selected' : '' %>>Senior</option>
+            <option value="vss" <%= zahtjevi === 'vss' ? 'selected' : '' %>>VSS</option>
+            <option value="vss_vss" <%= zahtjevi === 'vss_vss' ? 'selected' : '' %>>VSS - VSS</option>
+           
+          </select>
+        </div>
+      
+        <div class="col">
+          <button type="submit" class="btn btn-primary">Filtriraj</button>
+        </div>
+      </div>
+    </form>
+    
+    <h3>Aktivni Konkursi</h3>
+    <div class="row">
+      <% konkursi.filter(konkurs => konkurs.datum >= new Date()).forEach(konkurs => { %>
+        <div class="konkurs-card">
+          <h4><%= konkurs.naziv %></h4>
+          <p><strong>Naziv kompanije:</strong> <%= konkurs.kompanija %></p>
+          <p><strong>Rok:</strong> <%= konkurs.datum %></p>
+          <p><strong>Opis:</strong> <%= konkurs.opis %></p>
+          <p><strong>Ime i prezime HR menadzera:</strong> <%= konkurs.ime_hr %> <%= konkurs.prezime_hr %></p>
+          <p><strong>ID konkursa:</strong> <%= konkurs.id %></p>
+          <p><strong>Broj prijavljenih:</strong> <%= konkurs.broj_prijava %></p>
+
+          <a href="/konkursHR/<%= konkurs.id %>">Otvori</a>
+        </div>
+      <% }) %>
+    </div>
+
+    <!-- Arhivirani konkursi -->
+    <h3>Arhivirani Konkursi</h3>
+    <div class="row">
+      <% konkursi.filter(konkurs => konkurs.datum < new Date()).forEach(konkurs => { %>
+        <div class="konkurs-card">
+          <h4><%= konkurs.naziv %></h4>
+          <p><strong>Naziv kompanije:</strong> <%= konkurs.kompanija %></p>
+          <p><strong>Rok:</strong> <%= konkurs.datum %></p>
+          <p><strong>Opis:</strong> <%= konkurs.opis %></p>
+          <p><strong>Ime i prezime HR menadzera:</strong> <%= konkurs.ime_hr %> <%= konkurs.prezime_hr %></p>
+          <p><strong>ID konkursa:</strong> <%= konkurs.id %></p>
+          <p><strong>Broj prijavljenih:</strong> <%= konkurs.broj_prijava %></p>
+
+          <a href="/konkursHR/<%= konkurs.id %>">Otvori</a>
+        </div>
+      <% }) %>
+    </div>
+  </div>
+
+
+
+
+  <!-- Statistika prijavljivanja na konkurse -->
+<div id="dashboard-statistika" class="mt-5">
+  <h3 style="margin-left: 10px;">Statistika prijavljivanja na konkurse</h3>
+  
+  <!-- Broj kandidata po gradu (Pie chart) -->
+  <canvas id="gradChart" data-grad='<%= JSON.stringify(statistikaGrad) %>'></canvas>
+
+  <!-- Statistika obrazovanja (Bar chart) -->
+  <canvas id="obrazovanjeChart" data-obrazovanje='<%= JSON.stringify(statistikaObrazovanje) %>'></canvas>
+
+  <!-- Uspješnost kandidata (Bar chart) -->
+  <canvas id="uspjehChart" data-uspjeh='<%= JSON.stringify(statistikaUspjeh) %>'></canvas>
+</div>
+
+<!-------------------------------------------------------------------------------------------->
+
+
+
+
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="/javascripts/admin.js"></script>
+</body>
+</html>

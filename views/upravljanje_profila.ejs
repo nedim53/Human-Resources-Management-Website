@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html data-bs-theme="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Upravljanje Profilom</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="/stylesheets/upravljanje_profila.css">
+</head>
+<body>
+  <!-- Navbar -->
+  <nav class="navbar navbar-expand-lg" id="upravljanje_profila_nav">
+    <div class="container">
+      <a class="navbar-brand">
+        <img src="/images/profile-icon-png-910.png" alt="Profile Icon">
+        <span>Profil</span>
+      </a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav ms-auto">
+          <li class="nav-item"><a class="nav-link" href="/upravljanje_profila">Upravljanje profila</a></li>
+          <li class="nav-item"><a class="nav-link" href="/home">Konkursi</a></li>
+          <li class="nav-item"><a class="nav-link" href="/chat_k">Razgovor sa HR menadžerom</a></li>
+          <li class="nav-item"><a class="nav-link" href="/">Odjavi se</a></li>
+
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Upravljanje Profilom -->
+  <div class="container mt-5">
+    <div class="profile-card">
+      <h2 class="mb-4">Upravljanje Profilom</h2>
+      <form action="/upravljanje_profila" method="POST" enctype="multipart/form-data">
+        <div class="row mb-3">
+          <div class="col-md-6">
+            <label for="ime" class="form-label">Ime</label>
+            <input type="text" class="form-control" id="ime" name="ime" value="<%= korisnik.ime %>" required>
+          </div>
+          <div class="col-md-6">
+            <label for="prezime" class="form-label">Prezime</label>
+            <input type="text" class="form-control" id="prezime" name="prezime" value="<%= korisnik.prezime %>" required>
+          </div>
+        </div>
+        <div class="row mb-3">
+          <div class="col-md-4">
+            <label for="godine" class="form-label">Godine</label>
+            <input type="number" class="form-control" id="godine" name="godine" value="<%= korisnik.godine %>" min="0" required>
+          </div>
+          <div class="col-md-4">
+            <label for="email" class="form-label">Email</label>
+            <input type="email" class="form-control" id="email" name="email" value="<%= korisnik.email %>" required>
+          </div>
+          <div class="col-md-4">
+            <label for="telefon" class="form-label">Telefon</label>
+            <input type="tel" class="form-control" id="telefon" name="telefon" value="<%= korisnik.telefon %>">
+          </div>
+        </div>
+        <div class="mb-3">
+          <label for="adresa" class="form-label">Adresa</label>
+          <input type="text" class="form-control" id="adresa" name="adresa" value="<%= korisnik.adresa %>">
+        </div>
+        <div class="mb-3">
+          <label for="grad" class="form-label">Grad</label>
+          <input type="text" class="form-control" id="grad" name="grad" value="<%= korisnik.grad %>">
+        </div>
+        <div class="container mt-5">
+          <div class="profile-card">
+
+            <h2 class="mb-4">Dodavanje ličnih podataka</h2>      
+              <div class="row mb-3">
+                <div class="col-md-6">
+                  <label for="cv" class="form-label">CV:</label>
+                  <input type="file" class="form-control" id="cv" name="cv">
+                  <% if (korisnik.cv) { %>
+                    <p class="mt-2">Trenutni CV: <a href="<%= korisnik.cv %>" target="_blank" class="btn btn-success">Pogledaj CV</a></p>
+                    <% } %>
+                </div>
+
+                <div class="col-md-6">
+                  <label for="certifikat" class="form-label">Certifikat:</label>
+                  <input type="file" class="form-control" id="certifikat" name="certifikat">
+                  <% if (korisnik.certifikati) { %>
+                    <p class="mt-2">Trenutni certifikat: <a href="<%= korisnik.certifikati %>" target="_blank" class="btn btn-success">Pogledaj certifikat</a></p>
+                  <% } %>
+                </div>
+                
+              </div>
+              <div class="row mb-3">
+                <div class="col-md-4">
+                  <label for="radno_iskustvo" class="form-label">Radno iskustvo:</label>
+                  <input type="text" class="form-control" id="radno_iskustvo" name="radno_iskustvo" value="<%= korisnik.radno_iskustvo %>">
+                </div>
+                <div class="row mb-3">
+                  <div class="col-md-4">
+                      <label for="obrazovanje" class="form-label">Obrazovanje</label>
+                      <select class="form-control" id="obrazovanje" name="obrazovanje">
+                          <option value="<%= korisnik.obrazovanje%>" disabled selected><%= korisnik.obrazovanje%></option>
+                          <option value="SSS">SSS</option>
+                          <option value="VSS">VSS</option>
+                          <option value="VŠS">VŠS</option>
+                      </select>
+                  </div>
+              </div>
+
+          </div>
+        </div>
+        <button type="submit" class="btn btn-primary">Ažuriraj Profil</button>
+      </form>
+    </div>
+  </div>
+
+  <!------------------------------------------------------------------------------------------DRUGA FORMA-->
+
+ 
+
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

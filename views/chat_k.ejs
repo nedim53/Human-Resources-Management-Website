@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html data-bs-theme="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Razgovor sa HR menadžerima</title>
+  <!-- Bootstrap CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="/stylesheets/chat_k.css">
+</head>
+<body>
+  <nav class="navbar navbar-expand-lg navbar-light bg-light shadow-sm">
+    <div class="container">
+      <a class="navbar-brand">
+        <img src="/images/profile-icon-png-910.png" alt="Profile Icon" style="width: 40px; height: 40px;">
+        <%= korisnik.ime %> <%= korisnik.prezime %>
+      </a>
+      
+      <!-- Linkovi -->
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav ms-auto">
+          <li class="nav-item">
+            <a class="nav-link" href="/upravljanje_profila">Upravljanje profila</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/home" style="font-weight: bolder;">Konkursi</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/chat_k">Razgovor sa HR menadžerom</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/">Odjavi se</a>
+          </li>
+        </ul>
+      </div>
+      
+      <!-- Tri tačke za postavke -->
+      <div class="dropdown d-lg-none">
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+          <span class="navbar-toggler-icon">&#9776;</span> <!-- Ikonica -->
+        </button>
+        <ul class="dropdown-menu">
+          <li><a class="dropdown-item" href="/upravljanje_profila">Upravljanje profila</a></li>
+          <li><a class="dropdown-item" href="/home">Konkursi</a></li>
+          <li><a class="dropdown-item" href="/chat_k">Razgovor sa HR menadžerom</a></li>
+          <li><a class="dropdown-item" href="/">Odjavi se</a></li>
+
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+
+
+  <!-- Pregled poruka -->
+  <div class="container mt-5">
+    <h2 class="text-center">Razgovori</h2>
+    <% poruke.forEach(function(poruka) { %>
+    <div class="chat-box mb-4">
+      <div class="<%= poruka.posiljalac === korisnik.email ? 'message sent' : 'message received' %>">
+        <div class="message-header">
+          <strong><%= poruka.posiljalac === korisnik.email ? 'Vi' : poruka.posiljalac %></strong>
+          <small><%= poruka.primalac === korisnik.email ? 'Primatelj: Vi' : 'Primatelj: ' + poruka.primalac %></small>
+        </div>
+        <div class="message-body">
+          <p><%= poruka.poruka %></p>
+        </div>
+        <div class="message-timestamp">
+          <small><%= new Date(poruka.datum_slanja).toLocaleString() %></small>
+        </div>
+      </div>
+    </div>
+    <% }) %>
+  </div>
+  
+
+
+
+
+  <!-- Pregled menadžera -->
+  <div class="container mt-5">
+    <h2>Kontakt informacije menadžera</h2>
+    <div class="row" id="blok_konkursa">
+      <% menadzeri.forEach(menadzeri => { %>
+        <div class="col-md-4 mb-4">
+          <div class="konkurs-card p-4 border rounded shadow-sm" id="kartica">
+            <h4 style="font-weight: bold;"><%= menadzeri.ime %> <%= menadzeri.prezime %></h4>
+            <p><strong>Kontakt:</strong> <%= menadzeri.email %></p>
+          </div>
+        </div>
+      <% }) %>
+    </div>
+  </div>
+
+  <!-- Ikona za otvoriti chat -->
+  <div id="chat-icon" onclick="openChat()" class="chat-icon">
+    💬
+  </div>
+
+  <!-- Chat Modal -->
+  <div id="chat-modal" class="chat-modal">
+    <span class="close-chat" onclick="closeChat()">×</span>
+    <h4>Chat sa HR Menadžerom</h4>
+
+    <!-- Forma za chat -->
+    <form id="chat-form" action="/chat_k" method="POST">
+
+      <div class="mb-3">
+        <label for="sender-name" class="form-label">Vaš email</label>
+        <input type="email" id="sender-name" name="posiljalac" class="form-control" placeholder="Unesite vas Gmail" required>
+      </div>
+      <div class="mb-3">
+        <label for="hr-email" class="form-label">Email HR Menadžera</label>
+        <input type="email" id="hr-email" name="primalac" class="form-control" placeholder="Unesite Gmail HR Menadžera" required>
+      </div>
+
+      <div class="mb-3">
+        <label for="message" class="form-label">Poruka</label>
+        <textarea id="message" name="poruka" class="form-control" rows="4" placeholder="Unesite svoju poruku" required></textarea>
+      </div>
+
+      <button type="submit" class="btn btn-primary">Pošaljite</button>
+    </form>
+  </div>
+
+  <!-- Bootstrap JS -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+
+  <!-- JavaScript za otvaranje i zatvaranje chata -->
+  <script>
+    function openChat() {
+      document.getElementById("chat-modal").style.display = "block";
+    }
+
+    function closeChat() {
+      document.getElementById("chat-modal").style.display = "none";
+    }
+  </script>
+</body>
+</html>

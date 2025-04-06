@@ -1,0 +1,167 @@
+body {
+  background: linear-gradient(135deg, #004aad, #001f54);
+  color: #ffffff;
+  font-family: 'Roboto', sans-serif;
+  min-height: 100vh; 
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center; /* Centriranje celog sadržaja */
+  justify-content: flex-start;
+}
+
+.navbar {
+  background: linear-gradient(90deg, #1e1e2f, #282846);
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.4);
+  border-bottom: 1px solid #444;
+}
+
+.navbar-brand {
+  font-weight: bold;
+  color: #66b2ff;
+  display: flex;
+  align-items: center;
+}
+
+.navbar-brand:hover {
+  color: #f8f9fa;
+}
+
+.nav-link {
+  font-size: 18px;
+  color: #c2d1f0;
+  margin: 0 10px;
+  transition: color 0.3s, transform 0.3s ease;
+}
+
+.nav-link:hover {
+  color: #66b2ff;
+  transform: translateY(-2px);
+}
+
+.navbar-toggler {
+  border: none;
+  color: #c2d1f0;
+  background-color: transparent;
+}
+
+.dropdown-menu {
+  background-color: #333;
+  border: 1px solid #444;
+  color: #f8f9fa;
+}
+
+.dropdown-menu .dropdown-item {
+  color: #c2d1f0;
+  transition: background-color 0.3s, color 0.3s;
+}
+
+.dropdown-menu .dropdown-item:hover {
+  background-color: #186fe0;
+  color: #fff;
+}
+
+.container {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  padding: 20px;
+  min-height: 100vh;
+}
+
+h2 {
+  color: #ffffff;
+  margin-bottom: 30px;
+  text-align: center;
+}
+
+.row {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  width: 100%;
+  max-width: 1200px;
+  padding: 0 15px;
+}
+
+.konkurs-card {
+  background: rgba(255, 255, 255, 0.1);
+  border: none;
+  border-radius: 10px;
+  padding: 20px;
+  color: #ffffff;
+  flex: 1;
+  min-width: 250px;
+  max-width: 300px;
+  text-align: left;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5);
+  transition: transform 0.3s ease;
+}
+
+.konkurs-card:hover {
+  transform: translateY(-10px);
+}
+
+.konkurs-card h4 {
+  font-weight: bold;
+  margin-bottom: 15px;
+}
+
+.konkurs-card p {
+  font-size: 0.9rem;
+  line-height: 1.4;
+}
+
+.konkurs-card a {
+  display: inline-block;
+  margin-top: 10px;
+  padding: 10px 20px;
+  background: #6c42f5;
+  color: #ffffff;
+  border: none;
+  border-radius: 5px;
+  text-decoration: none;
+  text-align: center;
+  transition: background 0.3s ease;
+}
+
+.konkurs-card a:hover {
+  background: #4f3b78;
+}
+
+/* Stil za grafikon */
+#gradChart, #obrazovanjeChart, #uspjehChart {
+  max-width: 700px;
+  margin: 20px auto;
+  box-shadow: 0px 8px 20px rgba(0, 0, 0, 0.4);
+  border-radius: 15px;
+  padding: 10px;
+  background: rgba(255, 255, 255, 0.1);
+}
+
+
+/* Prilagodba rasporeda grafikonima na manjim ekranima */
+@media (max-width: 768px) {
+  #gradChart, #obrazovanjeChart, #uspjehChart {
+    height: 250px;
+  }
+
+  .row {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .konkurs-card {
+    width: 100%;
+  }
+}
+
+/* Dodavanje razmaka između grafika */
+#dashboard-statistika {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 20px;
+}

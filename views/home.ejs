@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html data-bs-theme="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!-- Bootstrap CSS -->
+   <title>Home stranica</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="/stylesheets/stranica.css">
+</head>
+<body>
+  <nav class="navbar navbar-expand-lg navbar-light bg-light shadow-sm">
+    <div class="container">
+      <a class="navbar-brand">
+        <img src="/images/profile-icon-png-910.png" alt="Profile Icon" style="width: 40px; height: 40px;">
+        <%= korisnik.ime %> <%= korisnik.prezime %>
+      </a>
+      
+      
+   
+    <!-- Linkovi -->
+    <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav ms-auto">
+            <li class="nav-item">
+                <a class="nav-link" href="/upravljanje_profila">Upravljanje profila</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/home" style="font-weight: bolder;">Konkursi</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/chat_k">Razgovor sa HR menadžerom</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="/">Odjavi se</a>
+          </li>
+        </ul>
+    </div>
+
+
+      <!-- Tri tačke za postavke -->
+     <div class="dropdown d-lg-none">
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+        <span class="navbar-toggler-icon">&#9776;</span> <!-- Ikonica -->
+    </button>
+        <ul class="dropdown-menu">
+            <li><a class="dropdown-item" href="/upravljanje_profila">Upravljanje profila</a></li>
+            <li><a class="dropdown-item" href="/home">Konkursi</a></li>
+            <li><a class="dropdown-item" href="/chat_k">Razgovor sa HR menadžerom</a></li>
+            <li><a class="dropdown-item" href="/">Odjavi se</a></li>
+
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <form action="/home" method="GET">
+    <div class="row mb-3">
+      <!-- Pretraga po nazivu -->
+      <div class="col">
+        <input type="text" name="naziv" class="form-control" placeholder="Pretraži po nazivu pozicije" value="<%= naziv || '' %>">
+      </div>
+  
+      <div class="col">
+        <input type="text" name="kompanija" class="form-control" placeholder="Pretraži po nazivu kompanije" value="<%= kompanija || '' %>">
+      </div>
+  
+      <!-- Pretraga po datumu -->
+      <select name="datumSort" class="form-control">
+        <option value="">Sortiraj po datumu</option>
+        <option value="asc" <%= datumSort === 'asc' ? 'selected' : '' %>>Datum (rastuci)</option>
+        <option value="desc" <%= datumSort === 'desc' ? 'selected' : '' %>>Datum (opadajući)</option>
+      </select>
+  
+      <!-- Filtriranje po zahtjevima -->
+      <div class="col">
+        <select name="zahtjevi" class="form-control">
+          <option value="">Filtriraj po zahtjevima</option>
+          <option value="cv" <%= zahtjevi === 'cv' ? 'selected' : '' %>>CV</option>
+          <option value="vozacka_dozvola" <%= zahtjevi === 'vozacka_dozvola' ? 'selected' : '' %>>Vozačka dozvola</option>
+          <option value="strani_jezik" <%= zahtjevi === 'strani_jezik' ? 'selected' : '' %>>Strani jezik</option>
+          <option value="iskustvo" <%= zahtjevi === 'iskustvo' ? 'selected' : '' %>>Iskustvo</option>
+          <option value="junior" <%= zahtjevi === 'junior' ? 'selected' : '' %>>Junior</option>
+          <option value="medior" <%= zahtjevi === 'medior' ? 'selected' : '' %>>Medior</option>
+          <option value="senior" <%= zahtjevi === 'senior' ? 'selected' : '' %>>Senior</option>
+          <option value="vss" <%= zahtjevi === 'vss' ? 'selected' : '' %>>VSS</option>
+          <option value="vss_vss" <%= zahtjevi === 'vss_vss' ? 'selected' : '' %>>VSS - VSS</option>
+        </select>
+      </div>
+
+
+      <div class="form-check">
+        <input
+          type="checkbox"
+          name="prijavljeni"
+          class="form-check-input"
+          value="true"
+          <%= prijavljeni === 'true' ? 'checked' : '' %> />
+        <label class="form-check-label">Prikaži samo prijavljene konkurse</label>
+      </div>
+      
+  
+      <div class="col">
+        <button type="submit" class="btn btn-primary">Filtriraj</button>
+      </div>
+    </div>
+  </form>
+  
+
+
+
+  <!-- Pregled konkursa -->
+  <div class="container mt-5">
+    <h2>Lista Konkursa</h2>
+    <div class="row" id="blok_konkursa">
+      <% konkursi.forEach(konkurs => { %>
+        <div class="col-md-4 mb-4">
+          <div class="konkurs-card p-4 border rounded shadow-sm" id="kartica">
+            <h4 style="font-weight: bold;"><%= konkurs.naziv %></h4>
+            <p><strong>Naziv kompanije:</strong> <%= konkurs.kompanija %></p>
+            <p><strong>Rok:</strong> <%= konkurs.datum %></p>
+            <p><strong>Opis:</strong> <%= konkurs.opis %></p>
+            <p><strong>Ime i prezime HR menadžera:</strong> <%= konkurs.ime_hr %> <%= konkurs.prezime_hr %></p>
+            <p><strong>ID konkursa: </strong><%= konkurs.id %></p>
+  
+            <!-- Prikaz statusa prijave -->
+            <% if (konkurs.status_prijave) { %>
+              <p><strong>Status prijave:</strong> <%= konkurs.status_prijave %></p>
+            <% } %>
+  
+            <a href="/konkurs/<%= konkurs.id %>" class="btn btn-light" id="dugme_otvori">Otvori</a>
+          </div>
+        </div>
+      <% }) %>
+    </div>
+  </div>
+  
+  <!-- Bootstrap JS -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

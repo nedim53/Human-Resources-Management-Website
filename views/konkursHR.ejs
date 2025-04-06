@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html data-bs-theme="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Pregled konkursa</title>
+  <!-- Bootstrap CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="/stylesheets/konkursHR.css">
+</head>
+<body>
+  <nav class="navbar navbar-expand-lg navbar-light bg-light shadow-sm">
+    <div class="container">
+      <a class="navbar-brand">
+        <img src="/images/profile-icon-png-910.png" alt="Profile Icon" style="width: 40px; height: 40px;">
+        <%= korisnik.ime %> <%= korisnik.prezime %>
+      </a>
+      
+      <!-- Linkovi -->
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav ms-auto">
+          <li class="nav-item">
+            <a class="nav-link" href="/kreirajKonkurs">Kreiranje i upravljanje Konkursa</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link"  href="/admin">Pregled i upravljanje kandidata</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/chat_hr">Razgovor sa kandidatima</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/">Odjavi se</a>
+          </li>
+        </ul>
+      </div>
+      
+      <!-- Tri tačke za postavke -->
+      <div class="dropdown d-lg-none">
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+          <span class="navbar-toggler-icon">&#9776;</span> <!-- Ikonica -->
+        </button>
+        <ul class="dropdown-menu">
+          <li><a class="dropdown-item" href="/kreirajKonkurs">Kreiranje i upravljanje Konkursa</a></li>
+          <li><a class="dropdown-item" href="/admin">Pregled i upravljanje kandidata</a></li>
+          <li><a class="dropdown-item" href="/chat_hr">Razgovor sa kandidatima</a></li>
+          <li><a class="dropdown-item" href="/">Odjavi se</a></li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+
+  <div class="container mt-4">
+    <!-- Detalji konkursa -->
+    <h1><%= konkurs.naziv %></h1>
+    <p><strong>Kompanija:</strong> <%= konkurs.kompanija %></p>
+    <p><strong>HR Menadžer:</strong> <%= konkurs.ime_hr %> <%= konkurs.prezime_hr %></p>
+    <p><strong>Rok za prijavu:</strong> <%= konkurs.datum %></p>
+    <p><strong>Opis:</strong> <%= konkurs.opis %></p>
+    <p><strong>Dodatne informacije:</strong> <%= konkurs.informacija %></p>
+    <p><strong>Zadaci i odgovornosti:</strong> <%= konkurs.zadaci %></p>
+    <p><strong>Kontakt:</strong> <%= konkurs.kontakt_email %>, <%= konkurs.kontakt_tel %></p>
+    <p><strong>Grad:</strong> <%= konkurs.grad || "Nije specificirano" %></p>
+    <p><strong>Prosjecna ocjena kandidata:</strong>  <%= prosjek.prosjecna_ocjena %></p>
+
+    <hr>
+
+    <!-- Filter i Lista prijavljenih kandidata -->
+    <div class="d-flex justify-content-between align-items-center mb-3">
+        <h2>Prijavljeni kandidati</h2>
+        <form id="filter-form" action="/konkursHR/<%= konkursID %>" method="GET" class="d-flex">
+            <select name="sort" class="form-select me-2" onchange="document.getElementById('filter-form').submit();">
+                <option value="">Sortiraj prema</option>
+                <option value="najbolji">Najbolje ocijenjeni</option>
+                <option value="najgori">Najgore ocijenjeni</option>
+                <option value="ime_az">Ime (A-Z)</option>
+                <option value="ime_za">Ime (Z-A)</option>
+            </select>
+        </form>
+    </div>
+
+    <% if (prijave.length > 0) { %>
+      <div class="table-wrapper">
+        <table class="table table-striped">
+          <thead>
+            <tr>
+              <th>#</th>
+              <th>Ime</th>
+              <th>Prezime</th>
+              <th>Email</th>
+              <th>Grad</th>
+              <th>CV</th>
+              <th>Ocjena</th>
+              <th>Više info</th>
+            </tr>
+          </thead>
+          <tbody>
+            <% prijave.forEach((prijava, index) => { %>
+              <tr>
+                <td data-label="#"> <%= index + 1 %> </td>
+                <td data-label="Ime"> <%= prijava.ime %> </td>
+                <td data-label="Prezime"> <%= prijava.prezime %> </td>
+                <td data-label="Email"> <%= prijava.email %> </td>
+                <td data-label="Grad"> <%= prijava.grad %> </td>
+                <td data-label="CV">
+                  <a href="/<%= prijava.cv_path %>" target="_blank" class="btn btn-sm btn-primary">Preuzmi CV</a>
+                </td>
+                <td data-label="Ocjena"> <%= prijava.ocjena %> </td>
+                <td data-label="Više info">
+                  <a href="/kandidat/<%= konkursID %>/<%= prijava.id %>" class="btn btn-sm btn-primary">Detaljno</a>
+                </td>
+              </tr>
+            <% }) %>
+          </tbody>
+        </table>
+      </div>
+    <% } else { %>
+      <p>Nema prijavljenih kandidata za ovaj konkurs.</p>
+    <% } %>
+    
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

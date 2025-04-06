@@ -1,0 +1,175 @@
+body {
+    background: linear-gradient(135deg, #004aad, #001f54);
+    color: #ffffff;
+    font-family: 'Roboto', sans-serif;
+    height: 100vh;  /* Koristi cijelu visinu ekrana */
+    margin: 0;
+    display: flex;
+    flex-direction: column;  /* Vertikalno postavljanje */
+    justify-content: flex-start;
+    align-items: center;  /* Centriranje sadržaja horizontalno */
+}
+
+.form-container {
+    background: rgba(0, 0, 50, 0.8);
+    border: none;
+    border-radius: 20px;
+    padding: 40px;
+    width: 90%;
+    max-width: 1200px;
+    box-shadow: 0 8px 32px 0 rgba(0, 0, 50, 0.8);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    margin-top: 20px;
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;  /* Centriranje forme horizontalno */
+    justify-content: center;  /* Centriranje forme vertikalno */
+}
+.navbar {
+    background: linear-gradient(90deg, #1e1e2f, #282846);
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.4);
+    border-bottom: 1px solid #444;
+    width: 100%;
+  }
+  
+  .navbar-brand {
+    font-weight: bold;
+    color: #66b2ff;
+    display: flex;
+    align-items: center;
+  }
+  
+  .navbar-brand:hover {
+    color: #f8f9fa;
+  }
+  
+  .nav-link {
+    font-size: 18px;
+    color: #c2d1f0;
+    margin: 0 10px;
+    transition: color 0.3s, transform 0.3s ease;
+  }
+  
+  .nav-link:hover {
+    color: #66b2ff;
+    transform: translateY(-2px);
+  }
+  
+  .navbar-toggler {
+    border: none;
+    color: #c2d1f0;
+    background-color: transparent;
+  }
+  
+  .dropdown-menu {
+    background-color: #333;
+    border: 1px solid #444;
+    color: #f8f9fa;
+  }
+  
+  .dropdown-menu .dropdown-item {
+    color: #c2d1f0;
+    transition: background-color 0.3s, color 0.3s;
+  }
+  
+  .dropdown-menu .dropdown-item:hover {
+    background-color: #186fe0;
+    color: #fff;
+  }
+  
+
+h2 {
+    color: #ffffff;
+    font-size: 2rem;
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+label {
+    color: #c2d1f0;
+    font-size: 0.9rem;
+    margin-bottom: 5px;
+    display: block;
+}
+
+input.form-control {
+    background: rgba(0, 50, 100, 0.6);
+    border: none;
+    border-radius: 10px;
+    color: #ffffff;
+    padding: 10px;
+    font-size: 1rem;
+    margin-bottom: 15px;
+}
+
+input::placeholder {
+    color: #aabbcc;
+}
+
+button {
+    background-color: #004aad !important; /* Dodano !important za osnovnu boju */
+    border: none;
+    border-radius: 20px;
+    color: #ffffff; /* Boja teksta dugmeta */
+    font-size: 1rem;
+    padding: 10px 20px;
+    width: 100%;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+button:hover {
+    background-color: #001f54 !important; /* Dodano !important za boju pri hoveru */
+    color: #ffffff;
+    box-shadow: 0 0 10px #004aad;
+}
+
+p {
+    margin-top: 15px;
+    font-size: 0.9rem;
+    text-align: center;
+}
+
+a {
+    color: #66b2ff;
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+a:hover {
+    color: #ffffff;
+}
+
+.checkbox-group label {
+    display: inline-block;
+    margin-right: 20px;
+    color: #c2d1f0;
+}
+
+@media (max-width: 768px) {
+    body {
+        padding-top: 20px;
+    }
+
+    .form-container {
+        padding: 20px;
+        width: 100%;
+        margin: 0;
+    }
+
+    h2 {
+        font-size: 1.5rem;
+    }
+
+    button {
+        font-size: 0.9rem;
+        padding: 8px 16px;
+        
+    }
+
+    .navbar-toggler {
+        border: none;
+    }
+}

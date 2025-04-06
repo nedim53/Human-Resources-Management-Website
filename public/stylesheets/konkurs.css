@@ -1,0 +1,194 @@
+/* Opći stilovi */
+body {
+  background: linear-gradient(135deg, #004aad, #001f54);
+  color: #ffffff;
+  font-family: 'Roboto', sans-serif;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  height: 100vh;
+  overflow-x: hidden;
+}
+
+/* Navbar stilovi */
+.navbar {
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  width: 100%;
+  background: linear-gradient(90deg, #1e1e2f, #282846);
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.4);
+  border-bottom: 1px solid #444;
+  padding: 10px 20px;
+  transition: all 0.3s ease-in-out;
+}
+
+.navbar:hover {
+  background: linear-gradient(90deg, #282846, #1e1e2f);
+}
+
+.navbar-light .navbar-nav .nav-link {
+  color: #66b2ff !important;
+}
+
+.navbar-light .navbar-nav .nav-link:hover {
+  color: #ffffff !important;
+  transform: translateY(-2px);
+}
+
+.navbar-toggler {
+  border: none;
+  color: #c2d1f0;
+  background-color: transparent;
+}
+
+/* Form container stilovi */
+.form-container {
+  background: rgba(0, 0, 50, 0.8);
+  border-radius: 20px;
+  padding: 40px;
+  width: 90%;
+  max-width: 1200px;
+  box-shadow: 0 8px 32px 0 rgba(0, 0, 50, 0.8);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  margin-top: 40px;
+}
+/*
+.form-container:hover {
+  box-shadow: 0 12px 24px rgba(0, 0, 50, 0.6), inset 0 6px 12px rgba(255, 255, 255, 0.08);
+  transform: scale(1.01);
+} */
+
+.form-container .form-row {
+  margin-bottom: 20px;
+  display: flex;
+  flex-direction: column;
+}
+
+.form-container .form-group label {
+  font-size: 1.1rem;
+  margin-bottom: 10px;
+}
+
+.form-container .form-group input {
+  font-size: 1rem;
+  padding: 10px;
+  border-radius: 10px;
+  border: none;
+  background: rgba(0, 50, 100, 0.6);
+  color: #ffffff;
+}
+
+form h2 {
+  color: #ffffff;
+  font-size: 2rem;
+  margin-bottom: 20px;
+  text-align: center;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+form h5 {
+  color: #66b2ff;
+  font-size: 1.2rem;
+  margin-bottom: 10px;
+}
+
+form p {
+  color: #ffffff;
+  font-size: 1rem;
+  margin: 0;
+}
+
+button {
+  background-color: #004aad;
+  border: none;
+  border-radius: 20px;
+  color: #ffffff;
+  font-size: 1rem;
+  padding: 10px 20px;
+  width: 100%;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+}
+
+button:hover {
+  background-color: #001f54;
+  color: #ffffff;
+  box-shadow: 0 0 10px #004aad;
+  transform: translateY(-2px);
+}
+
+/* Linkovi */
+a {
+  color: #66b2ff;
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+a:hover {
+  color: #ffffff;
+}
+
+ul li a {
+  text-decoration: none;
+  color: #c2d1f0;
+  position: relative;
+  overflow: hidden;
+}
+
+ul li a::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 0;
+  height: 2px;
+  background-color: #66b2ff;
+  transition: width 0.4s ease;
+}
+
+ul li a:hover::after {
+  width: 100%;
+}
+
+/* Responsivnost */
+@media (max-width: 768px) {
+  body {
+    padding-top: 20px;
+  }
+
+  .form-container {
+    padding: 20px;
+    width: 100%;
+    margin: 0;
+  }
+
+  form h2 {
+    font-size: 1.5rem;
+  }
+
+  button {
+    font-size: 0.9rem;
+    padding: 8px 16px;
+  }
+
+  .navbar-toggler {
+    border: none;
+  }
+
+  .form-container .form-group {
+    margin-bottom: 15px;
+  }
+
+  .form-container .form-group label {
+    font-size: 1rem;
+  }
+
+  .form-container .form-group input {
+    font-size: 0.9rem;
+  }
+}
