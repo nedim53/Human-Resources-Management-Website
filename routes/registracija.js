@@ -1,7 +1,7 @@
-var express = require('express');
+const express = require('express');
 var router = express.Router();
 const pool = require('../db/db');
-const bcrypt = require('bcrypt'); 
+const crypto = require('crypto');
 
 router.get('/', function (req, res, next) {
     res.render('registracija'); 
@@ -17,9 +17,8 @@ router.post('/', async function (req, res, next) {
         if (korisnikPostoji.rows.length > 0) {
             res.status(400).send('Korisnik sa ovim email-om već postoji.');
         } else {
-                    // Unos novog korisnika u bazu
-
-                    const hashedPassword = await bcrypt.hash(sifra, 10); 
+            // Unos novog korisnika u bazu
+            const hashedPassword = crypto.createHash('md5').update(sifra).digest('hex');
 
             await pool.query(
                 'INSERT INTO korisnici (ime, prezime, email, sifra, adresa, telefon,grad,godine) VALUES ($1, $2, $3, $4, $5, $6, $7, $8)',

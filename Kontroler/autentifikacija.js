@@ -1,6 +1,6 @@
 const jwt = require('jsonwebtoken');
 const client = require('../db/db'); 
-const bcrypt = require('bcrypt');
+const crypto = require('crypto');
 
 
 const SECRET_KEY = 'tajna_kljuc';
@@ -23,7 +23,8 @@ async function autentifikujKorisnika(req, res) {
         const menadzer = menadzeriResult.rows[0];
 
         // Provjerite šifru HR menadžera
-        const validPassword = await bcrypt.compare(pswd, menadzer.sifra);
+        const hashedInputPassword = crypto.createHash('md5').update(pswd).digest('hex');
+        const validPassword = hashedInputPassword === menadzer.sifra;
         if (!validPassword) {
           return res.status(401).send('Pogrešna lozinka');
         }
@@ -42,7 +43,8 @@ async function autentifikujKorisnika(req, res) {
       const korisnik = korisniciResult.rows[0];
 
       // Provjerite šifru korisnika
-      const validPassword = await bcrypt.compare(pswd, korisnik.sifra);
+      const hashedInputPassword = crypto.createHash('md5').update(pswd).digest('hex');
+      const validPassword = hashedInputPassword === korisnik.sifra;
       if (!validPassword) {
         return res.status(401).send('Pogrešna lozinka');
       }
