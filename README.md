@@ -1,53 +1,52 @@
-LIVE NA: https://odabranaprojekat-production.up.railway.app/home
-# 🎯 Odabrana_projekat – HR Web Aplikacija
+LIVE AT: https://odabranaprojekat-production.up.railway.app/home
 
-**Odabrana_projekat** je moderna HR (Human Resources) web aplikacija razvijena u Node.js okruženju koja omogućava efikasno upravljanje konkursima za posao, komunikaciju između kandidata i admina, te transparentan proces zapošljavanja.
+🎯 Odabrana_projekat – HR Web Application
+Odabrana_projekat is a modern HR (Human Resources) web application developed in a Node.js environment, designed to efficiently manage job postings, facilitate communication between candidates and administrators, and ensure a transparent hiring process.
 
-Projekt je podijeljen u dvije glavne cjeline:
+The project is divided into two main sections:
 
----
+👤 User Side (Candidates)
+Candidates have the ability to:
 
-## 👤 Korisnička strana (Kandidati)
+🔍 Browse and filter job listings by position, job description, and other criteria
+📝 Create a profile and apply to job postings
+💬 Communicate with admins through an integrated chat system
+📑 View the status of their applications
+📎 Attach CVs and other documents when applying
 
-Korisnici/kandidati imaju mogućnost da:
+🛠️ Admin Side
+The admin panel allows HR staff to:
 
-- 🔍 **Pregledaju i filtriraju oglase** po poziciji, opisu posla i drugim kriterijima
-- 📝 **Kreiraju profil** i prijavljuju se na oglase
-- 💬 **Komuniciraju s adminima** putem integrisanog chat sistema
-- 📑 **Pregledaju status prijava**
-- 📎 **Prilažu CV i druge dokumente** prilikom apliciranja
+➕ Create and edit job postings
+👀 View a list of applicants per posting
+🧮 Rate candidates and take internal notes
+📧 Send email notifications to candidates (e.g. interview invitations, rejection notices, etc.)
+💬 Communicate with candidates through the chat module
+📄 Generate PDF reports about candidates and job postings
 
----
+💻 Technologies Used
 
-## 🛠️ Admin strana
+Node.js + Express – server-side logic
 
-Admin panel omogućava HR osoblju da:
+EJS – for rendering dynamic pages
 
-- ➕ **Kreira i uređuje konkurse (oglase za posao)**
-- 👀 **Vidi listu prijavljenih kandidata po oglasu**
-- 🧮 **Ocjenjuje kandidate i bilježi interne napomene**
-- 📧 **Šalje e-mail obavijesti** kandidatima (npr. pozivi na intervju, odbijenice i sl.)
-- 💬 **Komunicira s kandidatima** putem chat modula
-- 📄 **Generiše PDF izvještaje** o kandidatima i konkursima
+PostgreSQL – database
 
----
+Bootstrap – frontend styling
 
-## 💻 Tehnologije korištene
+Socket.IO – real-time chat between admins and candidates
 
-- **Node.js + Express** – serverska logika
-- **EJS** – za renderovanje dinamičkih stranica
-- **PostgreSQL** – baza podataka
-- **Bootstrap** – frontend stilizacija
-- **Socket.IO** – real-time chat između admina i kandidata
-- **Nodemailer** – slanje email poruka
-- **PDFKit** – generisanje PDF dokumenata
-- **Railway** – deployment platforma
+Nodemailer – sending email messages
 
----
+PDFKit – generating PDF documents
 
-## 🚀 Pokretanje projekta lokalno
+Railway – deployment platform
 
-1. Kloniraj repozitorij:
-   ```bash
-   git clone https://github.com/nedim53/Odabrana_projekat.git
-   cd Odabrana_projekat
+🚀 Running the Project Locally
+Clone the repository:
+
+bash
+Copy
+Edit
+git clone https://github.com/nedim53/Odabrana_projekat.git  
+cd Odabrana_projekat
