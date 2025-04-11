@@ -1,4 +1,5 @@
 LIVE AT: https://odabranaprojekat-production.up.railway.app/home
+You can watch how the project works on YouTube: https://youtu.be/pnOHA6eU3gY
 
 🎯 Odabrana_projekat – HR Web Application
 Odabrana_projekat is a modern HR (Human Resources) web application developed in a Node.js environment, designed to efficiently manage job postings, facilitate communication between candidates and administrators, and ensure a transparent hiring process.
