@@ -2,11 +2,14 @@ LIVE AT: https://odabranaprojekat-production.up.railway.app/home
 You can watch how the project works on YouTube: https://youtu.be/pnOHA6eU3gY
 
 When logging on to the website for testing purposes use this email and username:
-For Admin side:
+
+**For Admin side:
+**
 email: hr@technova.com
 password: test
 
-For the user interface:
+**For the user interface:
+**
 email: test@gmail.com
 password: test
 
