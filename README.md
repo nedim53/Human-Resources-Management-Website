@@ -61,5 +61,5 @@ Clone the repository:
 bash
 Copy
 Edit
-git clone https://github.com/nedim53/Odabrana_projekat.git  
-cd Odabrana_projekat
+git clone https://github.com/nedim53/Human-Resources-Management-Website.git  
+cd Human-Resources-Management-Website
